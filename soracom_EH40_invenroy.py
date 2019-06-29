@@ -157,11 +157,8 @@ if __name__ == '__main__':
         logger.debug('%f - %s', time.time(),payload)
 
         try:
-            resultSend = soraSend(hostName,portNumber,payload)
-            logger.info('Result: %s', resultSend)
-        except socket.gaierror as msg:
-#            print("send error !")
-            logger.warning('Error on sending data: %s',msg)
+            response = requests.post(url, headers=headers, data=payload)
+            logger.info('Result: %s', resultSend.status_code)
         except :
             logger.warning('unexpected errror occurred.')
 
