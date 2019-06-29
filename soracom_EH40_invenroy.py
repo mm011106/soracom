@@ -40,22 +40,10 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 
 
-def soraSend(hostName,portNumber,payload):
-    soracom = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    with closing(soracom):    # サーバを指定
-        soracom.connect((hostName, portNumber))
-    # サーバにメッセージを送る
-        soracom.sendall(payload)
-    # ネットワークのバッファサイズは1024。サーバからの文字列を取得する
-        ret=soracom.recv(1024)
-        logger.info('sent data')
-    return ret
-    #print(soracom.recv(1024))
-
 #  constants for connecting to the service
-hostName='harvest.soracom.io'
-portNumber=8514
-resultSend=''
+# hostName='harvest.soracom.io'
+# portNumber=8514
+# resultSend=''
 
 # constants for I2C device
 bus_number  = 1
@@ -158,7 +146,7 @@ if __name__ == '__main__':
 
         try:
             response = requests.post(url, headers=headers, data=payload)
-            logger.info('Result: %s', resultSend.status_code)
+            logger.info('Result: %s', response.status_code)
         except :
             logger.warning('unexpected errror occurred.')
 
